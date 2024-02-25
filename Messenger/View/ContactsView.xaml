@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="Messenger.View.ContactsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Messenger.View"
+             xmlns:ViewModel="clr-namespace:Messenger.ViewModel"
+             xmlns:Messenger="clr-namespace:Messenger"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+
+    <UserControl.DataContext>
+        <ViewModel:ContactsViewModel/>
+    </UserControl.DataContext>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="Kontaktliste" FontSize="20" HorizontalAlignment="Center" Foreground="LightGray"/>
+            <Button Grid.Column="1" HorizontalAlignment="Stretch" Content="Add Contact"  Command="{Binding AddContactCommand}"  Style="{StaticResource ContactsMenuButton}" />
+            <Button Grid.Column="2" Content="Create Account" HorizontalAlignment="Stretch"  Command="{Binding CreateAccountCommand}" Style="{StaticResource ContactsMenuButton}"/>
+            <Button Grid.Column="3" Content="Login" HorizontalAlignment="Stretch"  Command="{Binding LoginCommand}" Style="{StaticResource ContactsMenuButton}"/>
+            <TextBlock Grid.Column="4" Text="{Binding LoginText}" FontSize="20" HorizontalAlignment="Center" Foreground="LightGray"/>
+
+
+        </Grid>
+        
+        
+
+        <ScrollViewer Grid.Row="1" >
+
+
+
+            <ScrollViewer.Template>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+
+                        
+
+                        <!-- Inhalt des ScrollViewers -->
+                        <ScrollContentPresenter Grid.Column="0" Grid.Row="0" Content="{TemplateBinding Content}"/>
+
+                        <!-- Benutzerdefinierte vertikale ScrollBar -->
+                        <ScrollBar Name="PART_VerticalScrollBar" Width="20" Grid.Column="1" Grid.Row="0" VerticalAlignment="Stretch" Value="{TemplateBinding VerticalOffset}" Maximum="{TemplateBinding ScrollableHeight}" ViewportSize="{TemplateBinding ViewportHeight}" />
+                    </Grid>
+                </ControlTemplate>
+            </ScrollViewer.Template>
+
+
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding ContactsModelList}" >
+            <ItemsControl.ItemTemplate >
+            <DataTemplate>
+
+
+
+                        <Border Padding="10"  Style="{StaticResource ContactsBorder}" BorderThickness="1" BorderBrush="Gray"  Margin="10 10 10 10" CornerRadius="4" >
+
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition  Width="130"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="50"/>
+                                </Grid.ColumnDefinitions>
+
+
+
+                                <Ellipse Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Width="100">
+                                    <Ellipse.Fill>
+                                        <SolidColorBrush Color="AliceBlue" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+
+                                <Ellipse Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Width="100" >
+                                    <Ellipse.Fill>
+                                        <ImageBrush  ImageSource="{Binding ContactImage}" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+                                <!--  <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Source="{Binding ContactImage}"/>    -->
+
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Name}" FontSize="20"  Style="{StaticResource ContactsTextBlock}" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Text="{Binding LastMessage}" FontSize="20"  Style="{StaticResource ContactsTextBlock}"/>
+                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding LastMessageDate}" FontSize="20"  Style="{StaticResource ContactsTextBlock}"/>
+
+
+                            <Button Grid.RowSpan="2" Grid.ColumnSpan="4" Visibility="Visible" Opacity="0" CommandParameter="{Binding Id}"   Command="{Binding DataContext.ShowMessagesCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Messenger:MainWindow }}}"/>
+
+                                <Button Grid.Row="0"  Content="╳"  FontSize="25" Grid.Column="3"  Width="50"   Style="{StaticResource CancelButton}" CommandParameter="{Binding Id}"   Command="{Binding DataContext.DeleteContactCommand,RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ContactsView }}}"/>
+
+
+
+
+
+
+
+
+                            </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+                </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        </ScrollViewer>
+        
+        
+        
+    </Grid>
+</UserControl>

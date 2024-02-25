@@ -1,0 +1,64 @@
+﻿<Application x:Class="Messenger.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Messenger"
+             xmlns:ViewModel="clr-namespace:Messenger.ViewModel"
+             xmlns:View="clr-namespace:Messenger.View"
+             
+             StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+
+        <ResourceDictionary>
+
+
+            <DataTemplate DataType="{x:Type ViewModel:ContactsViewModel}">
+                <View:ContactsView/>
+            </DataTemplate>
+
+        <DataTemplate DataType="{x:Type ViewModel:MessagesViewModel}">
+            <View:MessagesView/>
+        </DataTemplate>
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source ="./Style/Styles1.xaml"   />
+            </ResourceDictionary.MergedDictionaries>
+                
+                
+                
+                
+                
+                
+                
+                
+        </ResourceDictionary>
+        
+        
+        
+        
+        
+        
+        
+
+
+
+    </Application.Resources>
+</Application>
